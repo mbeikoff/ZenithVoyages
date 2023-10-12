@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <!-- Header Section with Destination and Exchange Rate -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h1>{{ destination.name }}</h1>
+            <p class="text-muted">Popular Destination</p>
+        </div>
+        <div class="col-md-6 text-right">
+            <p class="text-muted">1 AUD equals</p>
+            <h2 id="exchange-rate">0.62 {{ destination.currency }}</h2>
+        </div>
+    </div>
+
+    <!-- Destination Section -->
+    <div class="row mb-5">
+        <div class="col-md-4">
+            <img class="img-fluid rounded" src="{{ destination.image }}" alt="{{ destination.name }}">
+        </div>
+        <div class="col-md-8">
+            <small class="font-weight-bold text-muted">Stay 2 nights</small>
+            <h4 class="mt-2">{{ destination.name }}</h4>
+            <p>{{ destination.description }}</p>
+            <a href="#" class="btn btn-danger">Book Now</a>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Comments Section -->
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <h2>Comments</h2>
+        </div>
+    </div>
+
+    <!-- Render Comment Form -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            {{ render_form(form, "/destinations/{0}/comment".format(destination.id)) }}
+        </div>
+    </div>
+
+    <!-- Display Comments -->
+    {% for comment in destination.comments %}
+    <div class="row border-bottom mb-3">
+        <div class="col-md-12">
+            <strong>{{ comment.user.name }}</strong>
+            <span class="ml-2 text-muted">{{ comment.created_at.strftime('%B %d, %Y') }}</span> <!-- Display the timestamp -->
+            <p class="mt-2">{{ comment.text }}</p>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock %}

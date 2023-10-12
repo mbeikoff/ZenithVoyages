@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<!-- Jumbotron -->
+<div class="container mt-5">
+    <div class="jumbotron bg-light shadow p-5">
+        <h1 class="display-4 text-center">Find our best travel deals</h1>
+        <form action="{{url_for('main.search')}}" class="mt-4 mb-3"> <!-- Added margin-bottom (mb-3) here -->
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" id="SearchForm" placeholder="Search for destinations...">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 mb-5">
+            <div class="media bg-white border p-3 rounded shadow">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Earth_Western_Hemisphere_transparent_background.png/600px-Earth_Western_Hemisphere_transparent_background.png" alt="Planet Earth" class="mr-3" style="max-width:120px">
+                <div class="media-body">
+                    <h5>Find the best destinations on earth</h5>
+                    <p class="d-none d-sm-block">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla.</p>
+                    <a href="#" class="btn btn-primary">Join Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+      {% for destination in destinations %}
+      <div class="col-lg-6 mb-4">
+          <div class="card shadow-lg">
+              <img src="{{ destination.image }}" alt="destination picture" class="card-img-top">
+              <div class="card-body">
+                  <h5 class="card-title">{{ destination.name }}</h5>
+                  <p class="card-text">{{ destination.description }}</p>
+                  <a href="{{ url_for('destination.show', id=destination.id) }}" class="btn btn-danger">View Details</a>
+              </div>
+          </div>
+      </div>
+      {% endfor %}
+  </div>
+  
+</div>
+{% endblock %}
